@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rosa: #e91e63;
+            --vino: #880e4f;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 40%, #f8bbd0 100%);
+            min-height: 100vh;
+            color: #5a1040;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ===== Navegación ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(233, 30, 99, 0.15);
+        }
+
+        nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--vino);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--rosa);
+            font-weight: 600;
+            margin-left: 28px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--vino);
+        }
+
+        /* ===== Portada ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero .badge {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--rosa);
+            margin-bottom: 18px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 8vw, 4.6rem);
+            color: var(--vino);
+            margin-bottom: 22px;
+            line-height: 1.15;
+            animation: fadeInDown 1s ease 0.15s both;
+        }
+
+        .hero h1 em {
+            color: var(--rosa);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: clamp(1.05rem, 3.5vw, 1.4rem);
+            font-style: italic;
+            color: #7b1e4f;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.35s both;
+        }
+
+        .btn-primary {
+            margin-top: 40px;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, #e91e63, #ad1457);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.55s both;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 12px 35px rgba(233, 30, 99, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 18px 45px rgba(233, 30, 99, 0.5);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            font-size: 1.8rem;
+            color: var(--rosa);
+            animation: bounce 1.8s infinite;
+        }
+
+        /* ===== Carta (escrita a mano, onda tú) ===== */
+        .carta {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 45px 40px;
+            background: #fffdf7;
+            border-radius: 8px 8px 40px 8px;
+            box-shadow: 0 20px 50px rgba(90, 16, 64, 0.18);
+            position: relative;
+            border-left: 5px solid var(--rosa);
+            transform: rotate(-0.6deg);
+        }
+
+        .carta h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--vino);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .carta p {
+            font-size: 1.12rem;
+            line-height: 1.9;
+            margin-bottom: 18px;
+            color: #3d2a33;
+        }
+
+        .carta .firma {
+            text-align: right;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--rosa);
+            margin-top: 28px;
+            transform: rotate(-2deg);
+        }
+
+        /* ===== Galería ===== */
+        .galeria {
+            padding: 70px 20px 80px;
+            text-align: center;
+        }
+
+        .galeria h2 {
+            font-size: 2.3rem;
+            color: var(--vino);
+            margin-bottom: 10px;
+        }
+
+        .galeria .subtitulo {
+            color: #9c4a72;
+            margin-bottom: 45px;
+            font-size: 1.05rem;
+        }
+
+        .grid-fotos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .foto-card {
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            height: 340px;
+            box-shadow: 0 18px 40px rgba(136, 14, 79, 0.25);
+            transition: transform 0.4s, box-shadow 0.4s;
+            cursor: pointer;
+            border: 6px solid white;
+        }
+
+        .foto-card:nth-child(odd) { transform: rotate(-1.2deg); }
+        .foto-card:nth-child(even) { transform: rotate(1.2deg); }
+
+        .foto-card:hover {
+            transform: translateY(-12px) rotate(0deg) scale(1.02);
+            box-shadow: 0 30px 60px rgba(136, 14, 79, 0.35);
+            z-index: 2;
+        }
+
+        .foto-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .foto-card span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(80, 0, 40, 0.75));
+            color: white;
+            padding: 30px 15px 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            text-align: left;
+        }
+
+        /* ===== Modal ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 0, 20, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .modal img {
+            max-width: 95%;
+            max-height: 85vh;
+            border-radius: 16px;
+            border: 4px solid white;
+        }
+
+        .modal .cerrar {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .modal .cerrar:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        /* ===== LA PREGUNTA (el juego de los botones) ===== */
+        .pregunta {
+            padding: 90px 20px;
+            text-align: center;
+            background: linear-gradient(160deg, rgba(255,255,255,0.85), rgba(252, 228, 236, 0.9));
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pregunta h2 {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            color: var(--vino);
+            margin-bottom: 12px;
+        }
+
+        .pregunta .sub {
+            color: #9c4a72;
+            margin-bottom: 45px;
+            font-size: 1.05rem;
+        }
+
+        .botones {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .btn-si {
+            padding: 20px 60px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #e91e63, #ad1457);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 12px 35px rgba(233, 30, 99, 0.45);
+            transition: transform 0.3s;
+        }
+
+        .btn-si:hover {
+            transform: scale(1.12);
+        }
+
+        .btn-no {
+            padding: 14px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: 2px solid #b092a3;
+            border-radius: 50px;
+            background: white;
+            color: #8a7580;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-no-conver {
+            padding: 20px 60px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #e91e63, #ad1457);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 12px 35px rgba(233, 30, 99, 0.45);
+        }
+
+        .hint {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #b78ba3;
+            font-style: italic;
+        }
+
+        /* ===== Formulario de la cita ===== */
+        .form-cita {
+            display: none;
+            max-width: 520px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(136, 14, 79, 0.2);
+            text-align: left;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .form-cita h3 {
+            text-align: center;
+            color: var(--vino);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        .form-cita label {
+            display: block;
+            font-weight: 600;
+            color: #7b1e4f;
+            margin: 14px 0 6px;
+            font-size: 0.95rem;
+        }
+
+        .form-cita input,
+        .form-cita select,
+        .form-cita textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #f3c1d5;
+            border-radius: 12px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            background: #fffafc;
+            color: #3d2a33;
+            transition: border-color 0.3s;
+        }
+
+        .form-cita input:focus,
+        .form-cita select:focus,
+        .form-cita textarea:focus {
+            outline: none;
+            border-color: var(--rosa);
+        }
+
+        .btn-enviar {
+            width: 100%;
+            margin-top: 22px;
+            padding: 16px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #e91e63, #ad1457);
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-enviar:hover {
+            transform: scale(1.03);
+        }
+
+        /* ===== Pantalla final ===== */
+        .final {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        .final h2 {
+            font-size: clamp(2rem, 7vw, 3.2rem);
+            color: var(--vino);
+            margin-bottom: 18px;
+        }
+
+        .final p {
+            font-size: 1.15rem;
+            max-width: 520px;
+            margin: 0 auto 15px;
+            line-height: 1.7;
+        }
+
+        .final .resumen {
+            background: white;
+            border-radius: 18px;
+            padding: 20px 25px;
+            max-width: 420px;
+            margin: 25px auto;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(136, 14, 79, 0.15);
+            line-height: 2;
+        }
+
+        /* ===== Corazones flotantes ===== */
+        .corazon {
+            position: fixed;
+            bottom: -50px;
+            color: var(--rosa);
+            pointer-events: none;
+            z-index: 1;
+            animation: flotar linear forwards;
+            opacity: 0.85;
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+            100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--rosa);
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 16px; flex-direction: column; gap: 12px; }
+            nav a { margin: 0 8px; font-size: 0.9rem; }
+            .carta { margin: 40px 18px; padding: 32px 22px; transform: none; }
+            .foto-card { height: 280px; }
+            .botones { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Para ti ❤️</div>
+        <div>
+            <a href="#carta">La carta</a>
+            <a href="#galeria">Nosotros</a>
+            <a href="#pregunta">Una pregunta...</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="badge">Solo para ti</div>
+        <h1>Te extraño<br>y <em>te amo</em></h1>
+        <p>Hice esto porque no sabía cómo decirte todo lo que siento, así que aquí va.</p>
+        <a href="#carta" class="btn-primary">Leer la carta 💌</a>
+        <div class="scroll-indicator">⌄</div>
+    </section>
+
+    <!-- CARTA: mensaje del usuario, casi tal cual -->
+    <section class="carta" id="carta">
+        <h2>Oye...</h2>
+        <p>
+            Flaca, casi siempre no tenemos nunca buena comunicación, ya que los dos nos dejamos de hablar siempre y nunca hay un sí oficial o un no.
+        </p>
+        <p>
+            La cagué muy feo contigo. Fui infiel y no hay pretexto, ni modo de darle la vuelta. Lo siento de verdad, no de “perdón perdón” por compromiso, sino de que sí me pesa cuando pienso en todo lo que perdí por mi culpa.
+        </p>
+        <p>
+            Te extraño demasiado. Extraño hasta las cosas que antes me hacías como pareja. Tu risa, cuando te duermes en mí, hasta las peleas tontas. Todo.
+        </p>
+        <p>
+            No te escribo pa que me perdones a la fuerza ni pa presionarte. Nomás quiero que sepas que te amo y que te lo mereces todo. Y que si algún día quieres hablar, aquí estoy, sin dramas y sin presiones.
+        </p>
+        <p>
+            Flaca, si tú no quieres perdonarme, solo dime que no y yo me alejo, pero tampoco quiero que más adelante sientas que ya se te pasó y ahora sí me vas a perdonar, o que ya hiciste o me la devolviste y ahora sí me vas a perdonar. No, yo lo que quiero en verdad es una respuesta real y dejarnos de bobadas, parecemos niños siempre.
+        </p>
+        <p>
+            Y oye... hay algo que quiero preguntarte ahí abajo.
+        </p>
+        <p class="firma">— yo, el tonto que te falló pero te ama ❤️</p>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="galeria" id="galeria">
+        <h2>Nosotros</h2>
+        <p class="subtitulo">momentos que no olvido</p>
+        <div class="grid-fotos">
+            <div class="foto-card" onclick="abrirModal('IMG_0126.jpg')">
+                <img src="IMG_0126.jpg" alt="Nosotros frente a la rueda de la fortuna" loading="lazy">
+                <span>La rueda de la fortuna 🎡</span>
+            </div>
+            <div class="foto-card" onclick="abrirModal('018ce3e5-84ec-44a1-9c6e-7c068fe30fb8.jpg')">
+                <img src="018ce3e5-84ec-44a1-9c6e-7c068fe30fb8.jpg" alt="Nuestro beso" loading="lazy">
+                <span>Tu beso 💋</span>
+            </div>
+            <div class="foto-card" onclick="abrirModal('ddcfccccdf544e10a7a72a8b2001fab3.mov.jpg')">
+                <img src="ddcfccccdf544e10a7a72a8b2001fab3.mov.jpg" alt="En la piscina" loading="lazy">
+                <span>Día de piscina 🏊</span>
+            </div>
+            <div class="foto-card" onclick="abrirModal('IMG_2524.png')">
+                <img src="IMG_2524.png" alt="Descansando juntos" loading="lazy">
+                <span>Durmiendo juntitos 😴</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LA PREGUNTA (el juego del botón "no") -->
+    <section class="pregunta" id="pregunta">
+        <div id="pasoPregunta">
+            <h2>¿Me das otra oportunidad?</h2>
+            <p class="sub">Piénsalo bien... aunque en realidad el otro botón no coopera 😌</p>
+            <div class="botones" id="zonaBotones">
+                <button class="btn-si" id="btnSi">SÍ ❤️</button>
+                <button class="btn-no" id="btnNo">NO</button>
+            </div>
+            <p class="hint">pista: el botón "no" tiene miedo commitment 🏃‍♂️💨</p>
+        </div>
+
+        <!-- FORMULARIO DE LA CITA (aparece después del sí) -->
+        <div class="form-cita" id="pasoForm">
+            <h3>¡Sabía que no ibas a poder decir que no! 🥰</h3>
+            <!-- No envía los datos a ningún servidor; la respuesta se queda en pantalla para que ella te mande captura. -->
+            <form id="formCita">
+                <label for="comida">¿Qué se te antoja comer? 🍽️</label>
+                <select id="comida" name="comida" required>
+                    <option value="">Elige...</option>
+                    <option value="Tacos">Tacos 🌮</option>
+                    <option value="Pizza">Pizza 🍕</option>
+                    <option value="Sushi">Sushi 🍣</option>
+                    <option value="Hamburguesas">Hamburguesas 🍔</option>
+                    <option value="Mariscos">Mariscos 🦐</option>
+                    <option value="Carnitas">Carnitas 🐖</option>
+                    <option value="Pozole">Pozole 🍲</option>
+                    <option value="Lo que tú digas">Lo que tú digas 😌</option>
+                </select>
+
+                <label for="fecha">¿Qué día te late? 📅</label>
+                <input type="date" id="fecha" name="fecha" required>
+
+                <label for="hora">¿A qué hora? ⏰</label>
+                <input type="time" id="hora" name="hora" required>
+
+                <label for="plan">¿Qué quieres hacer? (el plan, tu idea, lo que sea) ✨</label>
+                <input type="text" id="plan" name="plan" placeholder="ej: ir a la rueda, al cine, por helado..." required>
+
+                <label for="motivoNo">Si en algún momento quisiste decir que no (aunque fuera solo por un segundo), aquí puedes explicarme por qué 💭</label>
+                <textarea id="motivoNo" name="motivoNo" rows="4" placeholder="ej: me dolió demasiado, no confío, necesito tiempo..."></textarea>
+
+                <label for="mensaje">¿Algo que quieras decirme? 💬</label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="suéltalo todo aquí..."></textarea>
+
+                <button type="submit" class="btn-enviar">Enviar 💌</button>
+            </form>
+        </div>
+
+        <!-- PANTALLA FINAL -->
+        <div class="final" id="pasoFinal">
+            <h2>Te amo ❤️</h2>
+            <p>Gracias por decir que sí (aunque fuera la única opción, jaja). Aquí está nuestro plan:</p>
+            <div class="resumen" id="resumenCita"></div>
+            <p style="font-style: italic; color: #9c4a72;">Toma captura de esto y mándasela a él ❤️</p>
+        </div>
+    </section>
+
+    <footer>
+        hecho con el corazón, para ti ❤️
+    </footer>
+
+    <!-- Modal de fotos -->
+    <div class="modal" id="modal" onclick="cerrarModal()">
+        <span class="cerrar">&times;</span>
+        <img id="modalImg" src="" alt="Foto ampliada">
+    </div>
+
+    <script>
+        // ===== Corazones flotando de fondo =====
+        function crearCorazon() {
+            const corazon = document.createElement('div');
+            corazon.className = 'corazon';
+            corazon.innerText = ['❤️', '💕', '💗', '💖'][Math.floor(Math.random() * 4)];
+            corazon.style.left = Math.random() * 100 + 'vw';
+            corazon.style.fontSize = (Math.random() * 1.6 + 1) + 'rem';
+            corazon.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            document.body.appendChild(corazon);
+            setTimeout(() => corazon.remove(), 9000);
+        }
+        setInterval(crearCorazon, 450);
+
+        // Explosión de corazones (para la pantalla final)
+        function explosionCorazones(cantidad) {
+            for (let i = 0; i < cantidad; i++) {
+                setTimeout(crearCorazon, i * 60);
+            }
+        }
+
+        // ===== Modal de fotos =====
+        function abrirModal(src) {
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modalImg').src = src;
+            document.body.style.overflow = 'hidden';
+        }
+        function cerrarModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') cerrarModal();
+        });
+
+        // ===== EL JUEGO DEL BOTÓN "NO" =====
+        const btnNo = document.getElementById('btnNo');
+        const btnSi = document.getElementById('btnSi');
+        const pasoPregunta = document.getElementById('pasoPregunta');
+        const pasoForm = document.getElementById('pasoForm');
+        const pasoFinal = document.getElementById('pasoFinal');
+        const hint = document.querySelector('.hint');
+
+        let intentos = 0;
+        let convertido = false;
+
+        const frases = [
+            '¡no te deja!',
+            'casi lo tocas 😏',
+            'huy ya se fue',
+            'el no no quiere',
+            '¿seguros? 🤨'
+        ];
+
+        function moverNo() {
+            if (convertido) return;
+            intentos++;
+
+            if (intentos >= 5) {
+                // Después de 5 intentos, el "no" se rinde y se vuelve "sí"
+                convertido = true;
+                btnNo.textContent = 'SÍ (ni hablar) 😂';
+                btnNo.classList.remove('btn-no');
+                btnNo.classList.add('btn-no-conver');
+                btnNo.style.position = 'static';
+                hint.textContent = 'ya ni modo, los dos son sí 😌';
+                return;
+            }
+
+            // Se escapa a un punto al azar de TODA la pantalla
+            btnNo.style.position = 'fixed';
+            btnNo.style.zIndex = 9999;
+            const ancho = btnNo.offsetWidth;
+            const alto = btnNo.offsetHeight;
+            const maxX = Math.max(window.innerWidth - ancho - 20, 10);
+            const maxY = Math.max(window.innerHeight - alto - 20, 10);
+            btnNo.style.left = (Math.random() * maxX) + 'px';
+            btnNo.style.top = (Math.random() * maxY) + 'px';
+
+            hint.textContent = frases[Math.min(intentos - 1, frases.length - 1)];
+        }
+
+        // Escapa cuando el mouse se acerca (y también al hacer clic)
+        btnNo.addEventListener('mouseenter', moverNo);
+        btnNo.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (convertido) {
+                aceptar();
+            } else {
+                moverNo();
+            }
+        });
+
+        // ===== ACEPTAR → mostrar formulario =====
+        btnSi.addEventListener('click', aceptar);
+
+        function aceptar() {
+            pasoPregunta.style.display = 'none';
+            pasoForm.style.display = 'block';
+            explosionCorazones(25);
+            pasoForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ===== ENVIAR FORMULARIO → pantalla final =====
+        const formCita = document.getElementById('formCita');
+        const resumenCita = document.getElementById('resumenCita');
+
+        formCita.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const comida = document.getElementById('comida').value;
+            const fechaCruda = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const plan = document.getElementById('plan').value;
+            const motivoNo = document.getElementById('motivoNo').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+
+            // Formatear la fecha bonita en español
+            let fechaBonita = fechaCruda;
+            if (fechaCruda) {
+                const partes = fechaCruda.split('-');
+                const d = new Date(partes[0], partes[1] - 1, partes[2]);
+                fechaBonita = d.toLocaleDateString('es-MX', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                });
+            }
+
+            resumenCita.innerHTML = `
+                <div><strong>🍽️ Comida:</strong> ${comida}</div>
+                <div><strong>📅 Día:</strong> ${fechaBonita}</div>
+                <div><strong>⏰ Hora:</strong> ${hora}</div>
+                <div><strong>✨ Plan:</strong> ${plan}</div>
+                ${motivoNo ? `<div><strong>💭 ¿Por qué estuvo cerca de decir que no?</strong> ${motivoNo}</div>` : ''}
+                ${mensaje ? `<div><strong>💬 Mensaje:</strong> ${mensaje}</div>` : ''}
+            `;
+
+            pasoForm.style.display = 'none';
+            pasoFinal.style.display = 'block';
+            explosionCorazones(60);
+            pasoFinal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+
+</body>
+</html>
